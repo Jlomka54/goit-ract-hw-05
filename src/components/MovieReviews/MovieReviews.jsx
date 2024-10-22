@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getReviewsByID } from "../../api/films";
 
+import c from "./MovieReviews.module.css";
+
 const MovieRevies = () => {
   const { movieId } = useParams();
   const [movieRevies, setMovieRevies] = useState([]);
@@ -10,7 +12,6 @@ const MovieRevies = () => {
     const fetchCastDetails = async () => {
       try {
         const data = await getReviewsByID(movieId);
-        console.log("🚀 ~ fetchCastDetails ~ data:", data);
 
         setMovieRevies(data.results);
       } catch (error) {
@@ -24,9 +25,9 @@ const MovieRevies = () => {
     <div>
       {movieRevies.map((review) => {
         return (
-          <div key={review.id}>
-            <h3>{review.author}</h3>
-            <p>{review.content}</p>
+          <div className={c.reviewContainer} key={review.id}>
+            <h3 className={c.author}>{review.author}</h3>
+            <p className={c.content}>{review.content}</p>
           </div>
         );
       })}

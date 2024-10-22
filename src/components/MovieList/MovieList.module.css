@@ -1,0 +1,23 @@
+.movieList {
+  list-style: none;
+  padding: 0;
+}
+
+.movieItem {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+.movieLink {
+  color: #0073e6;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.movieLink:hover {
+  color: #ff4500;
+}
+
+.movieLink:active {
+  color: #c70039;
+}
