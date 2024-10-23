@@ -1,11 +1,12 @@
 .movieList {
+  display: flex;
+  flex-wrap: wrap;
   list-style: none;
-  padding: 0;
 }
 
 .movieItem {
-  margin: 10px 0;
-  font-size: 18px;
+  margin: 10px;
+  text-align: center;
 }
 
 .movieLink {

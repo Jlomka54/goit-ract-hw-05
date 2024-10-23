@@ -38,6 +38,11 @@ const MovieList = ({ searchValue }) => {
               }}
               to={`/movies/${movie.id}`}
             >
+              <img
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title}
+                width="150"
+              />
               {movie.title}
             </Link>
           </li>
