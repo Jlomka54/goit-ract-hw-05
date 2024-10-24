@@ -1,7 +1,6 @@
 import { Link, useParams, useNavigate, useLocation } from "react-router-dom";
 import { getFilmsById } from "../../api/films";
-import { useEffect, useState } from "react";
-
+import { useEffect, useState, useRef } from "react";
 import c from "./MovieDetails.module.css";
 
 const MovieDetailsPage = () => {
@@ -9,6 +8,7 @@ const MovieDetailsPage = () => {
   const [movieDetails, setMovieDetails] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const backButtonRef = useRef(null);
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -16,7 +16,7 @@ const MovieDetailsPage = () => {
         const data = await getFilmsById(movieId);
         setMovieDetails(data);
       } catch (error) {
-        console.error("Error fetching movie details:", error);
+        console.error(error);
       }
     };
     fetchMovieDetails();
@@ -25,11 +25,19 @@ const MovieDetailsPage = () => {
   if (!movieDetails) {
     return <p>Loading...</p>;
   }
-  const backUrl = location.state?.from || "movies";
-  const goBack = () => navigate(backUrl);
+
+  const backUrl = location.state?.from || "/movies";
+
+  const goBack = () => {
+    if (backButtonRef.current) {
+      backButtonRef.current.focus();
+    }
+    navigate(backUrl);
+  };
+
   return (
     <div className={c.movieDetailsContainer}>
-      <button className={c.backButton} onClick={goBack}>
+      <button ref={backButtonRef} className={c.backButton} onClick={goBack}>
         GO back
       </button>
       <div className={c.movieDetailsWrapper}>
@@ -48,14 +56,14 @@ const MovieDetailsPage = () => {
         </div>
         <Link
           className={c.a}
-          state={{ from: location.state.from }}
+          state={{ from: backUrl }}
           to={`/movies/${movieId}/cast`}
         >
           Cast
         </Link>
         <Link
           className={c.a}
-          state={{ from: location.state.from }}
+          state={{ from: backUrl }}
           to={`/movies/${movieId}/reviews`}
         >
           Reviews

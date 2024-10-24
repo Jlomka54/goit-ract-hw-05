@@ -29,7 +29,7 @@ const HomePage = () => {
           Oops, some error occured &quot;{error}&quot;. Please, try again later.
         </p>
       )}
-      {trendMovies.length > 0 && <MovieList from="home" />}
+      {trendMovies.length > 0 && <MovieList movies={trendMovies} from="home" />}
     </div>
   );
 };
